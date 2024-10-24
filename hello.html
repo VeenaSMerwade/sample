@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myntra Product Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search for a Product on Myntra</h1>
+    <form id="searchForm" onsubmit="return searchProduct(event)">
+        <input type="text" id="productName" placeholder="Enter product name" required>
+        <button type="submit">Search</button>
+    </form>
+    <div id="results"></div>
+
+    <script>
+        function searchProduct(event) {
+            event.preventDefault();
+            const productName = document.getElementById('productName').value;
+            const searchUrl = `https://www.myntra.com/${productName.replace(' ', '-')}`;
+
+            // Clear previous results
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            // Example products with real links
+            const exampleProducts = [
+                { title: "Nike Air Max", price: "₹10,000", link: "https://www.myntra.com/nike-air-max" },
+                { title: "Adidas Ultraboost", price: "₹12,000", link: "https://www.myntra.com/adidas-ultraboost" },
+                { title: "Puma Running Shoes", price: "₹8,000", link: "https://www.myntra.com/puma-running-shoes" },
+                { title: "Reebok Classic", price: "₹7,500", link: "https://www.myntra.com/reebok-classic" },
+                { title: "Under Armour Training Shoes", price: "₹6,000", link: "https://www.myntra.com/under-armour-training-shoes" }
+            ];
+
+            exampleProducts.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.innerHTML = `
+                    <strong>${product.title}</strong><br>
+                    Price: ${product.price}<br>
+                    <a href="${product.link}" target="_blank">View on Myntra</a>
+                `;
+                resultsDiv.appendChild(productDiv);
+            });
+
+            // Optionally, open the search URL in a new tab
+            window.open(searchUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
